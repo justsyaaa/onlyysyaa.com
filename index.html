@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FROM TO SYAA</title>
+
+    <!-- Font Goblin One -->
+    <link href="https://fonts.googleapis.com/css2?family=Goblin+One&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #8c4cff;
+            --soft: #dfefff;
+            --neon: rgba(140, 76, 255, 0.9);
+        }
+
+        /* reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: Poppins, system-ui, sans-serif;
+            background: url('bgsyaa.jpg') center/cover fixed no-repeat;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ---------- INTRO ---------- */
+        .intro {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            z-index: 9999;
+        }
+
+        .intro h1 {
+            font-family: 'Goblin One', cursive;
+            font-size: 42px;
+            color: var(--soft);
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(140, 76, 255, 0.8);
+            margin-bottom: 28px;
+        }
+
+        .loader-wrap {
+            width: 80%;
+            max-width: 700px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .loader {
+            width: 0%;
+            height: 12px;
+            background: linear-gradient(90deg, var(--accent), #5bd1ff);
+            border-radius: 8px;
+            box-shadow: 0 0 20px var(--accent);
+            transition: width .2s linear;
+        }
+
+        .loader-text {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #cfdffb;
+            opacity: .9;
+        }
+
+        /* ---------- MAIN PAGE ---------- */
+        .page {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity .6s ease, transform .6s ease;
+            padding: 40px 0 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 420px;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 18px;
+            padding: 26px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(140, 76, 255, 0.03);
+            position: relative;
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            margin: 0 auto 12px;
+            display: block;
+        }
+
+        h1.title {
+            font-family: 'Goblin One', cursive;
+            color: #dfefff;
+            font-size: 24px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+            display: inline-block;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        h1.title img {
+            position: absolute;
+            right: -50px;
+            top: -20px;
+            width: 50px;
+            height: 50px;
+        }
+
+        h2.sub {
+            color: #e6eefc;
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        /* jam & tanggal */
+        #datetime {
+            color: #cfdffb;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        /* neon buttons */
+        .link-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: transform .18s ease, box-shadow .18s ease;
+            box-shadow: 0 0 8px var(--neon), 0 4px 14px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 18px var(--neon), 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .link-box .icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex: 0 0 34px;
+        }
+
+        .link-text {
+            font-weight: 600;
+            color: #eaf6ff;
+            font-size: 15px;
+            text-shadow: 0 0 4px var(--neon);
+        }
+
+        footer {
+            color: #cdd9ea;
+            font-size: 12px;
+            margin-top: 8px;
+            opacity: .9;
+            text-align: center;
+        }
+
+        /* partner section */
+        .partner-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .partner-title img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: cover;
+            filter: drop-shadow(0 0 12px var(--accent));
+        }
+
+        .partner-title h1 {
+            font-family: 'Goblin One', cursive;
+            color: #dfefff;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        /* music button */
+        #music-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(140, 76, 255, 0.12);
+            border: 2px solid rgba(140, 76, 255, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 18px var(--accent);
+            z-index: 900;
+        }
+
+        #music-btn:hover {
+            transform: scale(1.06);
+        }
+
+        /* flash overlay */
+        .flash-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 998;
+            opacity: 0;
+            background: rgba(140, 76, 255, 0.06);
+            mix-blend-mode: screen;
+            transition: opacity .12s ease;
+        }
+
+        .bolt {
+            position: fixed;
+            left: 50%;
+            top: 12%;
+            width: 8px;
+            height: 160px;
+            transform: translateX(-50%) rotate(10deg) scaleX(1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), var(--accent));
+            filter: drop-shadow(0 0 18px var(--accent));
+            opacity: 0;
+            z-index: 999;
+            clip-path: polygon(40% 0, 60% 0, 60% 18%, 80% 18%, 40% 50%, 70% 50%, 70% 68%, 30% 68%, 30% 86%, 50% 86%, 50% 100%, 30% 100%);
+            transition: opacity .05s ease;
+        }
+
+        @media(max-width:480px) {
+            .intro h1 {
+                font-size: 28px
+            }
+
+            .loader-wrap {
+                width: 92%
+            }
+
+            .container {
+                padding: 20px
+            }
+
+            .partner-title img {
+                width: 34px;
+                height: 34px
+            }
+
+            h1.title img {
+                width: 35px;
+                height: 35px;
+                right: -35px;
+                top: -15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- INTRO -->
+    <div class="intro" id="intro">
+        <h1>FROM TO SYAA</h1>
+        <div class="loader-wrap">
+            <div class="loader" id="loader"></div>
+            <div class="loader-text" id="loaderText">Loading... 0%</div>
+        </div>
+    </div>
+
+    <div class="flash-overlay" id="flash"></div>
+    <div class="bolt" id="bolt"></div>
+
+    <!-- MAIN PAGE -->
+    <main class="page" id="page" aria-hidden="true">
+        <div class="container">
+            <img src="ppsya.jpg" alt="pp" class="profile-img">
+            <h1 class="title">ABOUT SYAA <img src="anime2.jpg" alt="anime"></h1>
+            <h2 class="sub">KEPO SAMA GUE?</h2>
+            <div id="datetime"></div>
+
+            <a class="link-box" href="https://www.tiktok.com/@syaanedyou" target="_blank">
+                <img class="icon" src="tiktok.jpg" alt="tiktok">
+                <div class="link-text">TikTok</div>
+            </a>
+            <a class="link-box" href="https://www.instagram.com/mysticsyaa_" target="_blank">
+                <img class="icon" src="ig.jpg" alt="ig">
+                <div class="link-text">Instagram </div>
+            </a>
+            <a class="link-box" href="https://youtube.com/@zxsy6925" target="_blank">
+                <img class="icon" src="yt.jpg" alt="yt">
+                <div class="link-text">YouTube </div>
+            </a>
+            <a class="link-box" href="https://discord.gg/HYuHFA6tEU" target="_blank">
+                <img class="icon" src="dc.jpg" alt="dc">
+                <div class="link-text">Discord</div>
+            </a>
+            <a class="link-box" href="https://www.facebook.com/share/1BGvGrr7Tb/" target="_blank">
+                <img class="icon" src="fb.jpg" alt="fb">
+                <div class="link-text">Facebook</div>
+            </a>
+            <a class="link-box" href="https://whatsapp.com/channel/0029Vb6puqD3QxRt8E6wrA2B" target="_blank">
+                <img class="icon" src="wa.jpg" alt="wa">
+                <div class="link-text">Saluran Whatsapp</div>
+            </a>
+
+            <footer>© <span id="year"></span> WEB FROM JESYAA</footer>
+        </div>
+
+        <!-- partner block -->
+        <div class="container">
+            <div class="partner-title">
+                <img src="anime.jpg" alt="anime">
+                <h1>INFO LAIN + PARTNER</h1>
+            </div>
+            <a class="link-box" href="https://chat.whatsapp.com/G1gBjxb65ioCpYW8I5uJ7e?mode=wwt" target="_blank">
+                <img class="icon" src="jbsya.jpg" alt="p1">
+                <div class="link-text">JB EJAA X SYAA</div>
+            </a>
+            <a class="link-box" href="https://whatsapp.com/channel/0029Vb5P56jEVccOu2HCjv0c" target="_blank">
+                <img class="icon" src="wa.jpg" alt="p2">
+                <div class="link-text">SALURAN STOCK AKUN</div>
+            </a>
+            <a class="link-box" href="https://www.instagram.com/cpifrompriebomie_?igsh=bWZrNnJ4anYzcTA4" target="_blank">
+                <img class="icon" src="ig.jpg" alt="p3">
+                <div class="link-text">CPI OFFICAL</div>
+            </a>
+             <a class="link-box" href="https://discord.gg/HYuHFA6tEU" target="_blank">
+                <img class="icon" src="cc.jpg" alt="p3">
+                <div class="link-text">SIRCLE SYAA ONLY DC</div>
+            </a>
+
+            <footer>© <span id="year"></span> support syaaoffical@gmai.com to help</footer>
+        </div>
+    </main>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop src="songsya.mp3"></audio>
+    <audio id="thunder" src="thunder.mp3"></audio>
+
+    <!-- music toggle -->
+    <div id="music-btn" title="Play / Pause music">🎵</div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        /* ====== REAL TIME DATE & TIME ====== */
+        function updateDateTime() {
+            const dt = new Date();
+            const d = dt.toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+            const t = dt.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('datetime').textContent = d + ' | ' + t;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        /* ====== INTRO LOADING ====== */
+        const intro = document.getElementById('intro');
+        const loader = document.getElementById('loader');
+        const loaderText = document.getElementById('loaderText');
+        const page = document.getElementById('page');
+        let start = null;
+        const duration = 5000;
+        function stepLoader(ts) {
+            if (!start) start = ts;
+            const elapsed = ts - start;
+            const pct = Math.min(1, elapsed / duration);
+            loader.style.width = (pct * 100) + '%';
+            loaderText.textContent = 'Loading... ' + Math.floor(pct * 100) + '%';
+            if (pct < 1) {
+                window.requestAnimationFrame(stepLoader);
+            } else {
+                setTimeout(() => {
+                    intro.style.transition = 'opacity .5s ease, transform .5s ease';
+                    intro.style.opacity = 0;
+                    intro.style.transform = 'scale(.98)';
+                    setTimeout(() => {
+                        intro.remove();
+                        page.classList.add('visible');
+                        page.removeAttribute('aria-hidden');
+                    }, 500);
+                }, 220);
+            }
+        }
+        window.requestAnimationFrame(stepLoader);
+
+        /* ====== LIGHTNING ====== */
+        const flash = document.getElementById('flash');
+        const bolt = document.getElementById('bolt');
+        const thunder = document.getElementById('thunder');
+        let thunderAllowed = false;
+        function doLightning() {
+            flash.style.transition = 'none';
+            bolt.style.transition = 'none';
+            flash.style.opacity = 0.85;
+            bolt.style.opacity = 1;
+            setTimeout(() => {
+                flash.style.transition = 'opacity .18s ease';
+                bolt.style.transition = 'opacity .18s ease';
+                flash.style.opacity = 0;
+                bolt.style.opacity = 0;
+            }, 80);
+            if (thunderAllowed && thunder && thunder.paused) {
+                thunder.currentTime = 0;
+                thunder.volume = 0.9;
+                thunder.play().catch(() => { });
+            }
+        }
+        let lightningInterval = null;
+        function startLightningLoop() {
+            doLightning();
+            lightningInterval = setInterval(doLightning, 5000);
+        }
+
+        /* ====== START AUDIO ON INTERACT ====== */
+        const bgMusic = document.getElementById('bgMusic');
+        document.addEventListener('click', () => {
+            if (!thunderAllowed) thunderAllowed = true;
+            if (bgMusic.paused) { bgMusic.volume = 0.35; bgMusic.play().catch(() => { }); }
+            if (!lightningInterval) setTimeout(startLightningLoop, 700);
+            document.removeEventListener('click', arguments.callee);
+        });
+
+        /* ====== MUSIC BUTTON ====== */
+        const musicBtn = document.getElementById('music-btn');
+        musicBtn.addEventListener('click', () => {
+            if (bgMusic.paused) { bgMusic.play().catch(() => { }); musicBtn.textContent = '🔊'; }
+            else { bgMusic.pause(); musicBtn.textContent = '🎵'; }
+        });
+
+        /* ====== PAUSE LIGHTNING ON HIDDEN ====== */
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) { clearInterval(lightningInterval); lightningInterval = null; }
+            else if (thunderAllowed && !lightningInterval) { startLightningLoop(); }
+        });
+    </script>
+</body>
+
+</html>
