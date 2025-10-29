@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* ---------- INTRO ---------- */
+        /* -- INTRO -- */
         .intro {
             position: fixed;
             inset: 0;
@@ -367,13 +367,18 @@
                 <img class="icon" src="wa.jpg" alt="p2">
                 <div class="link-text">SALURAN STOCK AKUN</div>
             </a>
-            <a class="link-box" href="https://www.instagram.com/cpifrompriebomie_?igsh=bWZrNnJ4anYzcTA4" target="_blank">
+            <a class="link-box" href="https://www.instagram.com/cpifrompriebomie_?igsh=bWZrNnJ4anYzcTA4"
+                target="_blank">
                 <img class="icon" src="ig.jpg" alt="p3">
                 <div class="link-text">CPI OFFICAL</div>
             </a>
-             <a class="link-box" href="https://discord.gg/HYuHFA6tEU" target="_blank">
+            <a class="link-box" href="https://discord.gg/HYuHFA6tEU" target="_blank">
                 <img class="icon" src="cc.jpg" alt="p3">
                 <div class="link-text">SIRCLE SYAA ONLY DC</div>
+            </a>
+             <a class="link-box" href="https://discord.gg/duwB3aWBKa" target="_blank">
+                <img class="icon" src="rp.jpg" alt="p3">
+                <div class="link-text">DAY ONE ROLEPLAY!</div>
             </a>
 
             <footer>© <span id="year"></span> support syaaoffical@gmai.com to help</footer>
@@ -478,6 +483,129 @@
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) { clearInterval(lightningInterval); lightningInterval = null; }
             else if (thunderAllowed && !lightningInterval) { startLightningLoop(); }
+        });
+    </script>
+    <!-- ====== Iklan Pop-up Setelah Intro ====== -->
+    <style>
+        /* background redup */
+        .ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .ad-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* gambar iklan */
+        .ad-box {
+            position: relative;
+            width: 40%;
+            max-width: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .ad-box img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        /* tombol skip */
+        .skip-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            animation: glow 1.5s infinite alternate;
+            transition: 0.3s;
+        }
+
+        .skip-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px #00ffff;
+            }
+
+            100% {
+                box-shadow: 0 0 20px #00ffff;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+    </style>
+    <!-- elemen pop-up iklan -->
+    <div class="ad-overlay" id="adOverlay">
+        <div class="ad-box" id="adBox">
+            <button class="skip-btn" id="skipBtn">&gt;&gt;</button>
+            <img src="iklan.jpg" alt="Iklan">
+        </div>
+    </div>
+    <script>
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('adOverlay').classList.add('active');
+            }, 4000);
+        });
+
+        // tombol skip
+        document.getElementById('skipBtn').addEventListener('click', () => {
+            const adOverlay = document.getElementById('adOverlay');
+            const adBox = document.getElementById('adBox');
+            adBox.style.animation = 'fadeOut 1s ease forwards';
+            adOverlay.style.transition = 'opacity 1s ease';
+            adOverlay.style.opacity = '0';
+            setTimeout(() => {
+                adOverlay.remove();
+            }, 1000);
         });
     </script>
 </body>
