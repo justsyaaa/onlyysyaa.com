@@ -376,7 +376,7 @@
                 <img class="icon" src="cc.jpg" alt="p3">
                 <div class="link-text">SIRCLE SYAA ONLY DC</div>
             </a>
-             <a class="link-box" href="https://discord.gg/duwB3aWBKa" target="_blank">
+            <a class="link-box" href="https://discord.gg/duwB3aWBKa" target="_blank">
                 <img class="icon" src="rp.jpg" alt="p3">
                 <div class="link-text">DAY ONE ROLEPLAY!</div>
             </a>
@@ -597,6 +597,132 @@
         });
 
         // tombol skip
+        document.getElementById('skipBtn').addEventListener('click', () => {
+            const adOverlay = document.getElementById('adOverlay');
+            const adBox = document.getElementById('adBox');
+            adBox.style.animation = 'fadeOut 1s ease forwards';
+            adOverlay.style.transition = 'opacity 1s ease';
+            adOverlay.style.opacity = '0';
+            setTimeout(() => {
+                adOverlay.remove();
+            }, 1000);
+        });
+    </script>
+
+    <!-- ====== IKLAN POPUP SETELAH INTRO ====== -->
+    <style>
+        .ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            /* efek kaca buram */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .ad-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .ad-box {
+            position: relative;
+            width: 420px;
+            /* tetap stabil di semua device */
+            max-width: 90vw;
+            border-radius: 14px;
+            overflow: hidden;
+            animation: fadeIn 1s ease forwards;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+        .ad-box img {
+            width: 100%;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .skip-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            animation: glow 1.5s infinite alternate;
+            transition: 0.3s;
+        }
+
+        .skip-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 6px #00ffff;
+            }
+
+            100% {
+                box-shadow: 0 0 22px #00ffff;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+    </style>
+
+    <div class="ad-overlay" id="adOverlay">
+        <div class="ad-box" id="adBox">
+            <button class="skip-btn" id="skipBtn">&gt;&gt;</button>
+            <img src="iklan.jpg" alt="Iklan">
+        </div>
+    </div>
+
+    <script>
+        // Tampilkan iklan setelah intro selesai
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('adOverlay').classList.add('active');
+            }, 4000); // muncul 4 detik setelah intro
+        });
+
+        // Klik tombol >>
         document.getElementById('skipBtn').addEventListener('click', () => {
             const adOverlay = document.getElementById('adOverlay');
             const adBox = document.getElementById('adBox');
